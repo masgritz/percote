@@ -2,12 +2,16 @@ import subprocess, signal
 import time
 
 
-def collect_events(model):
+def collect_events(model, mode):
     """Use perf to collect pre-defined performance events"""
+    if is_systemwide is True:
+        all_flag = " -a"
+    else:
+        all_flag = ""
 
     # Define the command to collect the needed performance events
-    events_command = "sudo perf stat -x| -e instructions,cycles,cpu-clock,cpu-migrations,branches,branch-misses," \
-                     "context-switches,bus-cycles,cache-references,cache-misses,mem-loads,mem-stores," \
+    events_command = "sudo perf stat -x|" + all_flag + " -e instructions,cycles,cpu-clock,cpu-migrations,branches," \
+                     "branch-misses,context-switches,bus-cycles,cache-references,cache-misses,mem-loads,mem-stores," \
                      "L1-dcache-stores,L1-dcache-loads,L1-dcache-load-misses,LLC-stores,LLC-store-misses,LLC-loads," \
                      "LLC-load-misses,minor-faults,major-faults,page-faults,block:block_rq_insert," \
                      "block:block_rq_complete,block:block_rq_issue " + model
@@ -40,3 +44,17 @@ def collect_events(model):
                        str(elapsed_time) + "|Runtime (s)"
 
     return events_collected
+
+
+def is_systemwide():
+    """Ask the user if the performance events will be collected only from the application or system-wide"""
+    prompt = str(input("Collect the events in system-wide mode? (Y/N) "))
+
+    print(prompt.lower())
+
+    if prompt.lower() == "y":
+        print("Events will be collected on system-wide mode.\n")
+        return True
+    else:
+        print("Events will be collect in application-only mode.\n")
+        return False
