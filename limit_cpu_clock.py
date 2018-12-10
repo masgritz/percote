@@ -52,3 +52,19 @@ def revert_cpu_clock():
     """Revert the CPU to its default clock"""
     print("Reverting CPU clock to system defaults.")
     set_cpu_clock(None, None)
+
+
+def select_cpu_clock():
+    try:
+        max_clock = int(input("Type the maximum clock (in MHz) to run the command: "))
+    except:
+        max_clock = None
+        pass
+
+    try:
+        min_clock = int(input("Type the minimum clock (in MHz) to run the command: "))
+    except:
+        min_clock = None
+        pass
+
+    set_cpu_clock(max_clock, min_clock)
