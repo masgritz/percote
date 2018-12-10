@@ -4,7 +4,7 @@ import time
 
 def collect_events(model, mode):
     """Use perf to collect pre-defined performance events"""
-    if is_systemwide is True:
+    if mode is True:
         all_flag = " -a"
     else:
         all_flag = ""
