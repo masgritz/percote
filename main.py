@@ -17,9 +17,9 @@ def main():
 
     revert_cpu_clock()
 
-    parse_output(events_collected, "pre")
+    parse_output(pre_events, "pre")
     parse_output(events_collected, "main")
-    parse_output(events_collected, "post")
+    parse_output(post_events, "post")
 
 
 if __name__ == '__main__':
