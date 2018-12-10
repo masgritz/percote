@@ -2,6 +2,7 @@ from limit_cpu_clock import set_cpu_clock, revert_cpu_clock
 from collect_events import collect_events
 from parse_output import parse_output
 
+
 def main():
     revert_cpu_clock()
 

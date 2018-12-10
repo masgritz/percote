@@ -60,8 +60,7 @@ def parse_output(output):
     output_dict = dict(zip(column_names, output_list))
 
     performance_data = pd.DataFrame(output_dict, index=[0])
-    print(performance_data)
-
+    performance_data.to_json("output.json", orient='records')
 
 def rename_duplicates(my_list):
     """Rename repeated items in a list"""
