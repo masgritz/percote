@@ -5,7 +5,7 @@ pd.options.display.float_format = '{:20,.4f}'.format
 pd.options.display.max_columns = None
 
 
-def parse_output(output):
+def parse_output(output, run_id):
     """Parse the events collected by perf into a Pandas DataFrame"""
 
     # Replace gibberish and split into a list
@@ -60,7 +60,8 @@ def parse_output(output):
     output_dict = dict(zip(column_names, output_list))
 
     performance_data = pd.DataFrame(output_dict, index=[0])
-    performance_data.to_json("output.json", orient='records')
+    performance_data.to_json("output_" + run_id + ".json", orient='records')
+
 
 def rename_duplicates(my_list):
     """Rename repeated items in a list"""

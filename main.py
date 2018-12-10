@@ -11,10 +11,15 @@ def main():
 
     select_cpu_clock()
 
+    pre_events = collect_events("sleep 30", True)
     events_collected = collect_events(model, mode)
+    post_events = collect_events("sleep 30", True)
 
     revert_cpu_clock()
-    parse_output(events_collected)
+
+    parse_output(events_collected, "pre")
+    parse_output(events_collected, "main")
+    parse_output(events_collected, "post")
 
 
 if __name__ == '__main__':
