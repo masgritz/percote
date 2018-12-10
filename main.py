@@ -6,11 +6,7 @@ def main():
     revert_cpu_clock()
 
     model = input("Type the command to run: ")
-    try:
-        max_clock = int(input("Type the maximum clock (in MHz) to run the command: "))
-    except:
-        max_clock = None
-        pass
+    mode = is_systemwide()
 
     try:
         min_clock = int(input("Type the minimum clock (in MHz) to run the command: "))
@@ -18,9 +14,7 @@ def main():
         min_clock = None
         pass
 
-    set_cpu_clock(max_clock, min_clock)
-
-    events_collected = collect_events(model)
+    events_collected = collect_events(model, mode)
 
     revert_cpu_clock()
     parse_output(events_collected)
