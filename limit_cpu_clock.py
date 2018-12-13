@@ -8,9 +8,7 @@ def get_default_cpu_clock():
 
     stdout, stderr = process.communicate()
 
-    output = stdout.decode("utf-8")
-    output = output.replace("analyzing CPU 0:", "")
-    output = output.replace("\n", "")
+    output = stdout.decode("utf-8").replace("analyzing CPU 0:", "").replace("\n", "")
 
     default_clock = output.split(" ")
 
