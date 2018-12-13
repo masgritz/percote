@@ -23,13 +23,9 @@ def set_cpu_clock(max_clock, min_clock):
 
     if max_clock is None:
         max_clock = int(default_clock[1])
-    else:
-        max_clock = max_clock * 1000
 
     if min_clock is None:
         min_clock = int(default_clock[0])
-    else:
-        min_clock = min_clock * 1000
 
     if int(max_clock) < int(min_clock):
         print("The minimum clock (" + str(min_clock) + ") can't be higher than the maximum clock ("
@@ -44,8 +40,8 @@ def set_cpu_clock(max_clock, min_clock):
         print(stdout.decode("utf-8"))
         print(stderr.decode("utf-8"))
 
-        print("Maximum clock set as " + str(max_clock/1000) + "MHz")
-        print("Minimum clock set as " + str(min_clock/1000) + "MHz\n")
+        print("Maximum clock set as " + str(max_clock / 1000) + "MHz")
+        print("Minimum clock set as " + str(min_clock / 1000) + "MHz\n")
 
 
 def revert_cpu_clock():
@@ -56,13 +52,13 @@ def revert_cpu_clock():
 
 def select_cpu_clock():
     try:
-        max_clock = int(input("Type the maximum clock (in MHz) to run the command: "))
+        max_clock = int(input("Type the maximum clock (in MHz) to run the command: ")) * 1000
     except:
         max_clock = None
         pass
 
     try:
-        min_clock = int(input("Type the minimum clock (in MHz) to run the command: "))
+        min_clock = int(input("Type the minimum clock (in MHz) to run the command: ")) * 1000
     except:
         min_clock = None
         pass
