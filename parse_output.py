@@ -47,7 +47,13 @@ def parse_output(output):
     output_list = [e for e in output_list if e not in {'NaN', '100.0'}]
     column_names = [e for e in column_names if e not in {'Delete'}]
 
-    output_list = [float(i) for i in output_list]
+    temp_list = []
+
+    for element in output_list:
+        temp_list.append(convert_datatype(element))
+
+    output_list = temp_list
+    del temp_list
 
     column_names.extend(["/power/energy-pkg/ (W)", "/power/energy-cores/ (W)", "/power/energy-gpu (W)",
                          "/power/energy-ram/ (W)"])
