@@ -1,7 +1,7 @@
 import pandas as pd
 from collections import Counter
 
-pd.options.display.float_format = '{:20,.4f}'.format
+pd.options.display.float_format = '{:20.4f}'.format
 pd.options.display.max_columns = None
 
 
@@ -21,7 +21,6 @@ def parse_output(output):
 
     # Define a new list to include the column names
     column_names = []
-    garbage = []
     item = 0
 
     # Include the column names popped from the previous list in an interval
@@ -38,8 +37,8 @@ def parse_output(output):
 
     while item < len(output_list):
         try:
-            garbage.append(output_list.pop(item + 1))
-            garbage.append(output_list.pop(item + 1))
+            del output_list[item + 1]
+            del output_list[item + 1]
 
             item += 2
         except:
