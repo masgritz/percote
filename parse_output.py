@@ -71,3 +71,12 @@ def rename_duplicates(my_list):
             for suffix in range(1, num + 1):
                 my_list[my_list.index(s)] = s + "_" + str(suffix)
     return my_list
+
+
+def convert_datatype(val):
+    constructors = [int, float, str]
+    for c in constructors:
+        try:
+            return c(val)
+        except ValueError:
+            pass
