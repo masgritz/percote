@@ -1,7 +1,7 @@
 import pandas as pd
 from collections import Counter
 
-pd.options.display.float_format = '{:20,.4f}'.format
+pd.options.display.float_format = '{:20.4f}'.format
 pd.options.display.max_columns = None
 
 
@@ -21,7 +21,6 @@ def parse_output(output, run_id):
 
     # Define a new list to include the column names
     column_names = []
-    garbage = []
     item = 0
 
     # Include the column names popped from the previous list in an interval
@@ -38,8 +37,8 @@ def parse_output(output, run_id):
 
     while item < len(output_list):
         try:
-            garbage.append(output_list.pop(item + 1))
-            garbage.append(output_list.pop(item + 1))
+            del output_list[item + 1]
+            del output_list[item + 1]
 
             item += 2
         except:
@@ -48,7 +47,13 @@ def parse_output(output, run_id):
     output_list = [e for e in output_list if e not in {'NaN', '100.0'}]
     column_names = [e for e in column_names if e not in {'Delete'}]
 
-    output_list = [float(i) for i in output_list]
+    temp_list = []
+
+    for element in output_list:
+        temp_list.append(convert_datatype(element))
+
+    output_list = temp_list
+    del temp_list
 
     column_names.extend(["/power/energy-pkg/ (W)", "/power/energy-cores/ (W)", "/power/energy-gpu (W)",
                          "/power/energy-ram/ (W)"])
@@ -72,3 +77,12 @@ def rename_duplicates(my_list):
             for suffix in range(1, num + 1):
                 my_list[my_list.index(s)] = s + "_" + str(suffix)
     return my_list
+
+
+def convert_datatype(val):
+    constructors = [int, float, str]
+    for c in constructors:
+        try:
+            return c(val)
+        except ValueError:
+            pass
