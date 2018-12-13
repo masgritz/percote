@@ -30,14 +30,17 @@ def set_cpu_clock(max_clock, min_clock):
               + str(max_clock) + ")!")
 
     else:
+        # Define the command to change the clock
         command = "sudo cpupower frequency-set --max " + str(max_clock) + " --min " + str(min_clock)
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdout, stderr = process.communicate()
 
+        # Print cpupower output
         print(stdout.decode("utf-8"))
         print(stderr.decode("utf-8"))
 
+        # Print the clock values set for the model run
         print("Maximum clock set as " + str(max_clock / 1000) + "MHz")
         print("Minimum clock set as " + str(min_clock / 1000) + "MHz\n")
 

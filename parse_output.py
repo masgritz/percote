@@ -57,8 +57,8 @@ def parse_output(output):
 
     column_names.extend(["/power/energy-pkg/ (W)", "/power/energy-cores/ (W)", "/power/energy-gpu (W)",
                          "/power/energy-ram/ (W)"])
-    output_list.extend([output_list[50]/output_list[54], output_list[51]/output_list[54],
-                        output_list[52]/output_list[54],output_list[53]/output_list[54]])
+    output_list.extend([output_list[50] / output_list[54], output_list[51] / output_list[54],
+                        output_list[52] / output_list[54], output_list[53] / output_list[54]])
 
     column_names = rename_duplicates(column_names)
 
