@@ -1,7 +1,6 @@
 import pandas as pd
 from collections import Counter
 
-pd.options.display.float_format = '{:20.4f}'.format
 pd.options.display.max_columns = None
 
 
@@ -73,6 +72,7 @@ def rename_duplicates(my_list):
 
 
 def convert_datatype(val):
+    """Corrects the data type of a value"""
     constructors = [int, float, str]
     for c in constructors:
         try:
