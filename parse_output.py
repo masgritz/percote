@@ -29,18 +29,11 @@ def parse_output(output):
             column_names.append(output_list.pop(item + 1))
             column_names.append(output_list.pop(item + 4))
 
-            item += 4
-        except:
-            break
-
-    item = 0
-
-    while item < len(output_list):
-        try:
             del output_list[item + 1]
             del output_list[item + 1]
 
             item += 2
+
         except:
             break
 
