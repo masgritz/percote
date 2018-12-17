@@ -1,8 +1,6 @@
 import pandas as pd
 from collections import Counter
 
-pd.options.display.max_columns = None
-
 
 def parse_output(output):
     """Parse the events collected by perf into a Pandas DataFrame"""
