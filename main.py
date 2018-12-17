@@ -11,10 +11,19 @@ def main():
 
     select_cpu_clock()
 
-    events_collected = collect_events(model, mode)
+    try:
+        times = int(input("How many times will the model be executed? "))
 
-    revert_cpu_clock()
-    parse_output(events_collected)
+    except:
+        times = 1
+
+    for x in range(0, times):
+        print("Collecting performance events for " + model + "... (" + str(x+1) + "/" + str(times) + ")")
+        events_collected = collect_events(model, mode)
+
+        output = parse_output(events_collected)
+
+        print(output)
 
 
 if __name__ == '__main__':
