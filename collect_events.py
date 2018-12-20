@@ -9,7 +9,6 @@ def collect_events(model, mode):
     else:
         all_flag = ""
 
-    print("Collecting performance events for " + model + "...")
     # Define the command to collect the needed performance events
     events_command = "sudo perf stat -x|" + all_flag + " -e instructions,cycles,cpu-clock,cpu-migrations,branches," \
                      "branch-misses,context-switches,bus-cycles,cache-references,cache-misses,mem-loads,mem-stores," \

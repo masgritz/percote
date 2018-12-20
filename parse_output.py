@@ -1,11 +1,9 @@
 import pandas as pd
 from collections import Counter
-
-pd.options.display.float_format = '{:20.4f}'.format
-pd.options.display.max_columns = None
+import os
 
 
-def parse_output(output, run_id):
+def parse_output(output):
     """Parse the events collected by perf into a Pandas DataFrame"""
 
     # Replace gibberish and split into a list
@@ -29,18 +27,11 @@ def parse_output(output, run_id):
             column_names.append(output_list.pop(item + 1))
             column_names.append(output_list.pop(item + 4))
 
-            item += 4
-        except:
-            break
-
-    item = 0
-
-    while item < len(output_list):
-        try:
             del output_list[item + 1]
             del output_list[item + 1]
 
             item += 2
+
         except:
             break
 
@@ -57,15 +48,16 @@ def parse_output(output, run_id):
 
     column_names.extend(["/power/energy-pkg/ (W)", "/power/energy-cores/ (W)", "/power/energy-gpu (W)",
                          "/power/energy-ram/ (W)"])
-    output_list.extend([output_list[50]/output_list[54], output_list[51]/output_list[54],
-                        output_list[52]/output_list[54],output_list[53]/output_list[54]])
+    output_list.extend([output_list[50] / output_list[54], output_list[51] / output_list[54],
+                        output_list[52] / output_list[54], output_list[53] / output_list[54]])
 
     column_names = rename_duplicates(column_names)
 
     output_dict = dict(zip(column_names, output_list))
 
     performance_data = pd.DataFrame(output_dict, index=[0])
-    performance_data.to_json("output_" + run_id + ".json", orient='records')
+
+    return performance_data
 
 
 def rename_duplicates(my_list):
@@ -80,9 +72,18 @@ def rename_duplicates(my_list):
 
 
 def convert_datatype(val):
+    """Corrects the data type of a value"""
     constructors = [int, float, str]
     for c in constructors:
         try:
             return c(val)
         except ValueError:
             pass
+
+
+def check_dir(directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+        print('Created a new directory named "' + directory + '".')
+    else:
+        return
